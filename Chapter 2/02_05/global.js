@@ -1,4 +1,4 @@
-process.stdout.write("Hello  \n \n");
+process.stdout.write('Hello \n\n');
 
 const questions = [
   "What is your name?",
@@ -7,13 +7,25 @@ const questions = [
 ];
 const answers = [];
 
-function ask(i) {
-  process.stdout.write(`\n\n\n ${questions[i]}`);
+function ask(i = 0) {
+  process.stdout.write(`\n ${questions[i]}`);
   process.stdout.write(` > `);
 }
 
-process.stdin.on("data", function (data) {
-  process.stdout.write(data.toString().trim());
+ask();
+
+process.stdin.on('data', function (data) {
+  answers.push(data.toString().trim());
+
+  if(answers.length < questions.length)
+  {
+    ask(answers.length);
+  } else {
+    process.exit();
+  }
 });
 
-ask(answers.length);
+
+process.on("exit", function () {
+  process.stdout.write(`Go ${answers[1]} ${answers[0]} you can finish writing ${answers[2]} later\n`);
+});
