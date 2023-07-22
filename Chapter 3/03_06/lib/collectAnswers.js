@@ -1,6 +1,4 @@
 const readline = require("readline");
-const {EventEmitter} = require('events');
-
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -8,11 +6,8 @@ const rl = readline.createInterface({
 
 module.exports =  (questions, done) => {
     const answers = [];
-    const [firstQuestion] = questions;
-    const emitter = new EventEmitter();
     
     const answerQuestion = (answer) => {
-      emitter.emit('answer', answer);
       answers.push(answer.trim());
       
       if(answers.length < questions.length){
@@ -22,6 +17,5 @@ module.exports =  (questions, done) => {
       }
     };
     
-    rl.question(firstQuestion, answerQuestion);
-    return emitter;
+    rl.question(questions[0], answerQuestion);
 };
